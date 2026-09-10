@@ -1,0 +1,12 @@
+{
+  "name": "keeyu-design",
+  "version": "0.1.0",
+  "description": "The Keeyu design system and the build system that renders it. Customer-facing sales collateral as A4 print documents, the HTML templates behind every customer PDF, and the 1920x1080 decks. A strict specification measured from the approved reference.",
+  "author": {
+    "name": "Keeyu",
+    "url": "https://keeyu.app"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://github.com/jevon-lgtm/keeyu-design",
+  "keywords": ["keeyu", "design-system", "brand", "sales-collateral", "print", "pdf", "decks", "claude-skill"]
+}

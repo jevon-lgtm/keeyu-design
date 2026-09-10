@@ -1,0 +1,82 @@
+<!-- @dsCard group="Components" name="Gradient border box" subtitle="The treatment for a table, and only for a table" width="1240" height="437" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gradient border box</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wght@8..144,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap">
+<style>
+:root{
+  --ink:#000000; --strong:#1A1A1A; --body:#4D5454; --soft:#797E82; --muted:#9AA0A6;
+  --rule:#E0E0E0; --hair:#ECECEC; --track:#EFEFEF; --card-border:#EAEAEA;
+  --well:#F9F9F9; --connector:#CBCBCB; --paper:#FAFAFA;
+  --coral-light:#FCA694; --coral:#F6816A; --teal-light:#5FBEC8; --teal:#3FA7B7;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ background:var(--paper); color:var(--body);
+      font-family:'Geist',-apple-system,'Segoe UI',sans-serif; font-weight:400;
+      font-size:15px; line-height:1.4; letter-spacing:-0.002em; }
+.sheet{ padding:84px; position:relative; }
+.serif{ font-family:'Roboto Serif',Georgia,'Times New Roman',serif; font-weight:300;
+        letter-spacing:-0.002em; color:var(--ink); }
+h1{ font-family:'Roboto Serif',Georgia,serif; font-weight:300; font-size:72px;
+    line-height:1.12; letter-spacing:-0.002em; color:var(--ink); }
+h2{ font-family:'Roboto Serif',Georgia,serif; font-weight:300; font-size:40px;
+    line-height:1.24; letter-spacing:-0.002em; color:var(--ink); }
+h3{ font-family:'Roboto Serif',Georgia,serif; font-weight:300; font-size:32px;
+    line-height:1.24; color:var(--ink); }
+.cap{ font-family:'Roboto Serif',Georgia,serif; font-weight:300; font-size:19.4px;
+      line-height:1.24; color:var(--ink); }
+.note{ font-size:14px; line-height:1.5; color:var(--muted); }
+.lead{ font-size:17px; line-height:1.4; color:var(--body); }
+hr{ border:0; border-top:1px solid var(--rule); }
+hr.hair{ border-top-color:var(--hair); }
+a{ color:#3FA7B7; } a:hover{ color:#2F8794; }
+
+.hero{ position:absolute; left:-100px; top:-329px; width:1440px; height:684px;
+       overflow:hidden; background:var(--paper); z-index:0; }
+.hero::before{ content:""; position:absolute; top:0; left:-100px; width:1751px; height:684px;
+  filter:blur(53px); opacity:.8;
+  background:
+    linear-gradient(180deg, #FAFAFA 0%, #FAFAFA 19%, rgba(250,250,250,.78) 28%,
+      rgba(250,250,250,.38) 40%, rgba(250,250,250,0) 48%,
+      rgba(250,250,250,.18) 70%, rgba(250,250,250,.86) 84%, #FAFAFA 90%),
+    linear-gradient(92.24deg, #FF5331 0.07%, #FCE1DA 38.25%, #9CDFF3 75.92%, #D8F6FF 89.42%); }
+.dots{ position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
+.dots::before{ content:""; position:absolute; inset:0;
+  background-image:radial-gradient(circle at 1.5px 1.5px, rgba(0,0,0,.08) 1.5px, rgba(0,0,0,0) 1.6px);
+  background-size:20px 20px;
+  -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.06) 35%, rgba(0,0,0,.225) 70%, rgba(0,0,0,.5) 100%);
+          mask-image:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.06) 35%, rgba(0,0,0,.225) 70%, rgba(0,0,0,.5) 100%); }
+
+.chip{ display:inline-flex; align-items:center; padding:4px 7px; border-radius:6px;
+       font-family:'Geist',sans-serif; font-weight:500; font-size:11px; line-height:1.3;
+       letter-spacing:-0.002em; color:#FFFFFF; white-space:nowrap; }
+.chip--teal { background:linear-gradient(90deg,#5FBEC8,#3FA7B7); box-shadow:0 10px 20px -8px rgba(63,167,183,.55); }
+.chip--coral{ background:linear-gradient(90deg,#F9A898,#F6816A); box-shadow:0 10px 20px -8px rgba(246,129,106,.55); }
+.chip--grey { background:linear-gradient(90deg,#B4B8BD,#9AA0A6); box-shadow:0 10px 20px -8px rgba(154,160,166,.55); }
+.chip--lg{ font-size:14.3px; padding:5.2px 9.1px; border-radius:7.8px; }
+.chip--lg.chip--teal { box-shadow:0 13px 26px -10.4px rgba(63,167,183,.55); }
+.chip--lg.chip--coral{ box-shadow:0 13px 26px -10.4px rgba(246,129,106,.55); }
+.chip--lg .num{ display:inline-block; width:9px; text-align:center; }
+
+.card{ width:1240px; min-height:437px; position:relative; padding:56px; background:var(--paper); }
+.spec{ display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+.spec > div{ display:flex; justify-content:space-between; border-bottom:1px solid var(--hair); padding-bottom:10px; }
+.spec > div:last-child{ border-bottom:0; }
+.spec .v{ color:var(--strong); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="dots"></div>
+  <div style="position:relative;z-index:1">
+    <h3 style="font-size:32px">Gradient border box</h3>
+    <div style="width:1072px;border:1px solid transparent;border-radius:22px;padding:28px 44px;margin-top:24px;background:linear-gradient(#FAFAFA,#FAFAFA) padding-box, linear-gradient(100deg,#9CDFF3,#D8F6FF 35%,#FCE1DA 70%,#FF5331) border-box"><div style="width:984px"><div style="display:flex;padding-bottom:14px;border-bottom:1px solid var(--hair)"><span style="width:260px;flex:none;font-weight:500;color:var(--strong);font-size:15px">Track</span><span style="width:560px;flex:none;font-weight:500;color:var(--strong);font-size:15px">Position</span><span style="width:116px;flex:none;font-weight:500;color:var(--strong);font-size:15px;text-align:right">Status</span></div><div style="display:flex;padding:14px 0;border-bottom:1px solid var(--hair);align-items:center"><span style="width:260px;flex:none;color:var(--strong);font-size:15px">Keeyu builds the integration</span><span style="width:560px;flex:none;font-size:15px">5 to 10 working days</span><span style="width:116px;flex:none;text-align:right"><span class="chip chip--teal">Confirmed</span></span></div><div style="display:flex;padding:14px 0;border-bottom:1px solid var(--hair);align-items:center"><span style="width:260px;flex:none;color:var(--strong);font-size:15px">Your team shares credentials</span><span style="width:560px;flex:none;font-size:15px">2 to 3 hours</span><span style="width:116px;flex:none;text-align:right"><span class="chip chip--coral">Open</span></span></div></div></div>
+    <p class="note" style="margin-top:20px;max-width:900px">Renarrow the columns to 984 when you box a table, or the content collides with the border. One box per page reads as emphasis. Three boxes stacked read as a form.</p>
+  </div>
+</div>
+</body>
+</html>

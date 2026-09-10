@@ -1,0 +1,23 @@
+/* Keeyu design tokens. Measured from the approved reference.
+   Do not round, scale or substitute a value. Figma native scale:
+   multiply by 0.6403 to reach CSS px on an A4 print page. */
+:root{
+  /* Ink ramp */
+  --ink:#000000; --strong:#1A1A1A; --body:#4D5454; --soft:#797E82; --muted:#9AA0A6;
+  /* Lines and surfaces */
+  --rule:#E0E0E0; --hair:#ECECEC; --track:#EFEFEF; --card-border:#EAEAEA;
+  --well-bg:#F9F9F9; --connector:#CBCBCB; --white:#FFFFFF; --paper:#FAFAFA;
+  /* Semantic dyad: coral is a problem, teal is resolved. Never decorative. */
+  --coral-light:#FCA694; --coral:#F6816A;
+  --chip-coral-light:#F9A898;
+  --teal-light:#5FBEC8; --teal:#3FA7B7;
+  --grey-light:#B4B8BD; --grey-base:#9AA0A6;
+  /* Web register */
+  --web-ground:#F9F9F9; --web-coral:#F88C77; --web-blue:#A9D5E2; --web-accent:#A2ADAB;
+  --web-border:#DBD9D9;
+  /* Geometry, Figma units */
+  --page-w:1240px; --page-h:1754px; --margin:84px; --content-w:1072px;
+  --deck-w:1920px; --deck-h:1080px; --deck-margin:120px; --deck-content:1680px;
+  --radius-chip:6px; --radius-bar:10px; --radius-card:12px; --radius-well:22px;
+  --print-scale:0.6403;
+}

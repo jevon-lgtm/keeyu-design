@@ -1,0 +1,192 @@
+[
+  {
+    "path": "colour/ink-ramp.html",
+    "name": "Ink ramp",
+    "subtitle": "Five greys, ink to muted",
+    "group": "Colour",
+    "viewport": {
+      "width": 1240,
+      "height": 423
+    }
+  },
+  {
+    "path": "colour/surfaces.html",
+    "name": "Lines and surfaces",
+    "subtitle": "rule, hair, track, cardBorder, wellBg, paper",
+    "group": "Colour",
+    "viewport": {
+      "width": 1240,
+      "height": 341
+    }
+  },
+  {
+    "path": "colour/semantic-dyad.html",
+    "name": "Semantic dyad",
+    "subtitle": "Coral is a problem, teal is resolved, grey is no state",
+    "group": "Colour",
+    "viewport": {
+      "width": 1240,
+      "height": 417
+    }
+  },
+  {
+    "path": "colour/brand-gradient.html",
+    "name": "Brand gradient",
+    "subtitle": "Four stops, emitted as light and never as fill",
+    "group": "Colour",
+    "viewport": {
+      "width": 1240,
+      "height": 347
+    }
+  },
+  {
+    "path": "type/display-ramp.html",
+    "name": "Display ramp",
+    "subtitle": "Roboto Serif Light 72 / 40 / 34 / 32 / 19.4, at true size",
+    "group": "Type",
+    "viewport": {
+      "width": 1240,
+      "height": 920
+    }
+  },
+  {
+    "path": "type/operational-ramp.html",
+    "name": "Operational ramp",
+    "subtitle": "Geist Regular and Medium, 19 / 18 / 17 / 15 / 14 / 13",
+    "group": "Type",
+    "viewport": {
+      "width": 1240,
+      "height": 747
+    }
+  },
+  {
+    "path": "type/deck-ramp.html",
+    "name": "Deck ramp",
+    "subtitle": "The A4 ramp at 1.35x, for 1920 x 1080",
+    "group": "Type",
+    "viewport": {
+      "width": 1240,
+      "height": 373
+    }
+  },
+  {
+    "path": "depth/triad.html",
+    "name": "Skeuomorphic triad",
+    "subtitle": "Gradient body, lit edge, cast glow. All three, always",
+    "group": "Depth",
+    "viewport": {
+      "width": 1240,
+      "height": 360
+    }
+  },
+  {
+    "path": "depth/bars.html",
+    "name": "Coral and teal bars",
+    "subtitle": "Exact fills, inner shadows and cast glows",
+    "group": "Depth",
+    "viewport": {
+      "width": 1240,
+      "height": 387
+    }
+  },
+  {
+    "path": "depth/white-card.html",
+    "name": "White card",
+    "subtitle": "The one object that is a box rather than a lit surface",
+    "group": "Depth",
+    "viewport": {
+      "width": 1240,
+      "height": 260
+    }
+  },
+  {
+    "path": "components/chips.html",
+    "name": "Chip",
+    "subtitle": "A status, a track name or a list numeral. Never prose",
+    "group": "Components",
+    "viewport": {
+      "width": 1240,
+      "height": 542
+    }
+  },
+  {
+    "path": "components/graphic-well.html",
+    "name": "Graphic well",
+    "subtitle": "#F9F9F9, hair stroke, radius 22, 1072 wide, 44 padding",
+    "group": "Components",
+    "viewport": {
+      "width": 1240,
+      "height": 435
+    }
+  },
+  {
+    "path": "components/gradient-border-box.html",
+    "name": "Gradient border box",
+    "subtitle": "The treatment for a table, and only for a table",
+    "group": "Components",
+    "viewport": {
+      "width": 1240,
+      "height": 437
+    }
+  },
+  {
+    "path": "components/tile-grid.html",
+    "name": "Tile grid",
+    "subtitle": "A list of categories each with a value",
+    "group": "Components",
+    "viewport": {
+      "width": 1240,
+      "height": 318
+    }
+  },
+  {
+    "path": "components/numbered-list.html",
+    "name": "Two-column numbered list",
+    "subtitle": "Five or more items run in two columns with chip numerals",
+    "group": "Components",
+    "viewport": {
+      "width": 1240,
+      "height": 340
+    }
+  },
+  {
+    "path": "ground/hero-wash.html",
+    "name": "Hero wash",
+    "subtitle": "One smooth field, one child, top of page one and foot of every page after",
+    "group": "Ground",
+    "viewport": {
+      "width": 1240,
+      "height": 832
+    }
+  },
+  {
+    "path": "ground/dot-grid.html",
+    "name": "Page dot grid",
+    "subtitle": "Black at 8%, radius 1.5, pitch 20, on every page",
+    "group": "Ground",
+    "viewport": {
+      "width": 1240,
+      "height": 509
+    }
+  },
+  {
+    "path": "rules/techniques.html",
+    "name": "The eight techniques",
+    "subtitle": "What to do, in the cases the specification does not enumerate",
+    "group": "Rules",
+    "viewport": {
+      "width": 1240,
+      "height": 838
+    }
+  },
+  {
+    "path": "rules/non-negotiables.html",
+    "name": "The fourteen non-negotiables",
+    "subtitle": "Each one records a real rejected attempt",
+    "group": "Rules",
+    "viewport": {
+      "width": 1240,
+      "height": 1141
+    }
+  }
+]

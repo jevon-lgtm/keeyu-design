@@ -1,0 +1,587 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Keeyu A4 Document System — Base CSS  (v5, Refract)
+   ═══════════════════════════════════════════════════════════════════
+   Replaces a4_base.css. Values measured from the approved Figma
+   reference (Doc 1 · What We Heard, 1240 × 1754 @ 150 dpi).
+
+   SCALE: the Figma canvas is 1240 px wide = 210 mm.
+   CSS px on an A4 page at 96 dpi = 794 px wide.
+   Conversion factor: 794 / 1240 = 0.6403.
+   Every px value below is a Figma value × 0.6403, noted in comments.
+
+   To resize the whole type ramp without touching layout, change
+   --type-scale. 1 = exactly as designed in Figma.
+
+   v5, 2026-09-07: the hero is a single smooth wash. See section 4.
+   ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ── 1. Fonts ───────────────────────────────────────────────────── */
+
+@font-face { font-family: 'Roboto Serif'; font-weight: 300; src: url('FONTS_PATH/roboto-serif/RobotoSerif-Light.ttf'); }
+@font-face { font-family: 'Roboto Serif'; font-weight: 400; src: url('FONTS_PATH/roboto-serif/RobotoSerif-Regular.ttf'); }
+@font-face { font-family: 'Geist'; font-weight: 400; src: url('FONTS_PATH/geist/Geist-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Geist'; font-weight: 500; src: url('FONTS_PATH/geist/Geist-Medium.woff2') format('woff2'); }
+
+
+/* ── 2. Design tokens ───────────────────────────────────────────── */
+
+:root {
+  /* Ink ramp */
+  --ink:          #000000;
+  --strong:       #1A1A1A;
+  --body:         #4D5454;
+  --soft:         #797E82;
+  --muted:        #9AA0A6;
+
+  /* Lines and surfaces */
+  --rule:         #E0E0E0;
+  --hair:         #ECECEC;
+  --track:        #EFEFEF;
+  --card-border:  #EAEAEA;
+  --well-bg:      #F9F9F9;
+  --connector:    #CBCBCB;
+  --white:        #FFFFFF;
+
+  /* Signal: coral = problem, teal = resolved. Never decorative. */
+  --coral-light:  #FCA694;
+  --coral:        #F6816A;
+  --teal-light:   #5FBEC8;
+  --teal:         #3FA7B7;
+
+  /* Geometry — Figma px × 0.6403 */
+  --page-w:       794px;    /* 1240 */
+  --page-h:       1123px;   /* 1754 */
+  --margin:       53.8px;   /* 84   */
+  --content-w:    686.4px;  /* 1072 */
+  --col-headline: 284.3px;  /* 444  */
+  --col-response: 329.1px;  /* 514  */
+  --col-gap:      68.5px;   /* 107  */
+  --footer-y:     1086px;   /* 1696 */
+
+  --type-scale:   1;
+}
+
+
+/* ── 3. Page setup ──────────────────────────────────────────────── */
+
+@page { size: A4 portrait; margin: 0; }
+
+* { margin: 0; padding: 0; box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+html, body {
+  width: var(--page-w);
+  font-family: 'Geist', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-size: calc(9.6px * var(--type-scale));
+  line-height: 1.4;
+  letter-spacing: -0.002em;
+  color: var(--body);
+  background: var(--white);
+}
+
+.page {
+  width: var(--page-w);
+  height: var(--page-h);
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+  padding: 0 var(--margin);
+  page-break-after: always;
+}
+.page:last-child { page-break-after: auto; }
+
+
+/* ── 3b. Flowing document ───────────────────────────────────────── */
+/* Fixed .page is for designed-page docs (Business Case, Demo Deck).
+   Variable-length docs (this one) flow and let Chrome paginate.     */
+
+.doc { position: relative; width: var(--page-w); padding: 0 var(--margin) 76px; background: var(--white); }
+.doc .doc-footer { position: fixed; bottom: 25px; top: auto; }
+
+
+/* ── 4. Hero wash ───────────────────────────────────────────────── */
+/* Measured from Figma: frame 'hero', native 1440 x 684, sitting at
+   (-100, -329) on page 1 and (-100, 1506) on every following page.
+   Two layers, in order:
+     1. 'gradient'  1751 x 554 at opacity .8, four-stop linear gradient
+                    whose axis runs 267.76deg (2.2deg off horizontal),
+                    coral at the left edge, pale blue past the right edge
+     2. a white fall-off standing in for Figma's PROGRESSIVE layer blur
+                    (startRadius 98.8, top to bottom) which cannot be
+                    expressed in CSS
+   Built as one pseudo-element at Figma native size and scaled by 0.6403,
+   so no template markup changes: <div class="hero"></div> is still the
+   whole of it.
+
+   The wash is a smooth blurred gradient with nothing laid over the colour.
+   The hero is this one pseudo-element and no more. */
+
+.hero {
+  position: absolute; left: -64px; top: -210.7px;
+  width: 922px; height: 438px;
+  overflow: hidden; pointer-events: none; z-index: 0;
+  background: var(--white);
+}
+.page--cont .hero { top: 964.3px; }
+
+.hero::before {
+  content: ""; position: absolute; top: 0; left: 0;
+  height: 684px;
+  transform: scale(0.6403); transform-origin: top left;
+}
+/* The wash rectangle is 1751 wide and starts 100 left of the hero, so the
+   blur below has real colour to pull in from and does not vignette. */
+.hero::before { left: -64.03px; width: 1751px; filter: blur(34px); }
+
+/* Both layers. The white fall-off is listed first so it paints above.
+   The vertical profile is measured off the two pages: hero local y 0 to 130
+   is above the wash rectangle and reads white; the wash ramps in over local
+   130 to 330 (this is the band page 2 shows at its foot, which is why it is
+   pale there and full strength at the head of page 1); it holds to about
+   local 510 and is gone by local 600. Those local values as percentages of
+   the 684 tall hero are the stops below. */
+.hero::before {
+  background:
+    linear-gradient(180deg,
+      #fff 0%, #fff 19%,
+      rgba(255,255,255,.78) 28%,
+      rgba(255,255,255,.38) 40%,
+      rgba(255,255,255,0)   48%,
+      rgba(255,255,255,.18) 70%,
+      rgba(255,255,255,.86) 84%,
+      #fff 90%),
+    linear-gradient(92.24deg,
+      #FF5331 0.07%, #FCE1DA 38.25%, #9CDFF3 75.92%, #D8F6FF 89.42%);
+  opacity: .8;
+  /* Figma applies a PROGRESSIVE layer blur, startRadius 98.8, running top to
+     bottom. CSS has no progressive blur, so this is a flat blur at roughly
+     the mid-band radius. */
+}
+
+
+/* ── 5. Furniture ───────────────────────────────────────────────── */
+
+.logo { position: absolute; left: 57px; top: 44.8px; width: 83.2px; z-index: 2; }
+
+.doc-footer {
+  position: absolute; left: var(--margin); right: var(--margin); top: var(--footer-y);
+  display: flex; justify-content: space-between;
+  font-size: calc(8.3px * var(--type-scale)); color: var(--muted);
+}
+
+
+/* ── 6. Content column ──────────────────────────────────────────── */
+
+.content { position: relative; z-index: 1; padding-top: 98.6px; }  /* origin y154 */
+
+
+/* ── 7. Type ramp ───────────────────────────────────────────────── */
+/* Serif for every display level. Geist for everything else.
+   No third family. No other weights of Roboto Serif. */
+
+.doc-title {
+  font-family: 'Roboto Serif', serif; font-weight: 300;
+  font-size: calc(46.1px * var(--type-scale));       /* 72 */
+  line-height: 1.12; letter-spacing: -0.002em; color: var(--ink);
+}
+.doc-meta {
+  font-size: calc(12.2px * var(--type-scale));       /* 19 */
+  line-height: 1.5; color: var(--body); margin-top: 12.8px;
+}
+.section-heading {
+  font-family: 'Roboto Serif', serif; font-weight: 300;
+  font-size: calc(25.6px * var(--type-scale));       /* 40 */
+  line-height: 1.24; letter-spacing: -0.002em; color: var(--ink);
+  margin-top: 39.7px;                                 /* 62 */
+}
+.pain-headline {
+  font-family: 'Roboto Serif', serif; font-weight: 300;
+  font-size: calc(21.8px * var(--type-scale));       /* 34 */
+  line-height: 1.24; letter-spacing: -0.002em; color: var(--ink);
+}
+.prose-heading {
+  font-family: 'Roboto Serif', serif; font-weight: 300;
+  font-size: calc(20.5px * var(--type-scale));       /* 32 */
+  line-height: 1.24; color: var(--ink);
+}
+.doc-intro {
+  font-size: calc(10.9px * var(--type-scale));       /* 17 */
+  line-height: 1.4; color: var(--body); margin-top: 19.2px;
+}
+.caption {
+  font-family: 'Roboto Serif', serif; font-weight: 300;
+  font-size: calc(12.4px * var(--type-scale));       /* 19.4 */
+  line-height: 1.24; color: var(--ink);
+}
+
+
+/* ── 8. Rules ───────────────────────────────────────────────────── */
+/* A rule is a line, never a box with one edge showing. */
+
+.rule       { border: 0; border-top: 1px solid var(--rule); margin: 25.6px 0 0; }
+.rule--hair { border-top-color: var(--hair); }
+
+
+/* ── 9. Stat row  (fills METRICS_HTML) ──────────────────────── */
+/* Class names kept identical to the v3 templates so the existing
+   Python renderer output slots straight in. */
+
+.pp-metrics-row {
+  display: flex; justify-content: space-between;
+  width: 445px;                                      /* 695 */
+  margin-top: 30.7px;                                /* 48 */
+}
+.pp-metric-box { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.pp-metric-value {
+  font-family: 'Roboto Serif', serif; font-weight: 300; font-style: normal;
+  font-size: calc(34.6px * var(--type-scale));       /* 54 */
+  line-height: 1.1; letter-spacing: -0.01em; color: var(--ink);
+}
+.pp-metric-label {
+  font-family: 'Geist', sans-serif; font-weight: 400; text-transform: none; letter-spacing: -0.002em;
+  font-size: calc(9px * var(--type-scale));          /* 14 */
+  line-height: 1.5; color: var(--muted); margin-top: 2.6px;
+}
+
+
+/* ── 10. Comparison rows  (fills TABLE_ROWS_HTML) ───────────── */
+/* Two columns: the pain headline, and the Keeyu response. The two
+   column labels are injected in CSS so the renderer output is
+   unchanged. Coral labels the situation, teal labels the response. */
+
+.pp-table { width: var(--content-w); border-collapse: collapse; margin-top: 19.2px; }
+.pp-table tr { page-break-inside: avoid; break-inside: avoid; }
+.pp-table tr + tr td { border-top: 1px solid var(--hair); }
+.pp-table td { vertical-align: top; padding: 19.2px 0 19.2px; }
+.pp-table td:first-child  { width: var(--col-headline); padding-right: var(--col-gap); }
+.pp-table td:nth-child(2) { width: var(--col-response); }
+
+/* Left cell: the pain, set as a display headline. */
+.pp-table td:first-child {
+  font-family: 'Roboto Serif', serif; font-weight: 300;
+  font-size: calc(21.8px * var(--type-scale));
+  line-height: 1.24; letter-spacing: -0.002em; color: var(--ink);
+}
+
+/* Right cell: what we heard, then how Keeyu fixes it. */
+.pp-pain-body, .pp-pain-fix {
+  font-size: calc(9.6px * var(--type-scale)); line-height: 1.3; letter-spacing: -0.002em;
+}
+.pp-pain-body { color: var(--soft); }
+.pp-pain-fix  { color: var(--strong); font-weight: 400; margin-top: 9.6px; padding-top: 19.2px;
+                border-top: 1px solid var(--hair); }
+
+.pp-pain-body::before, .pp-pain-fix::before {
+  display: block; font-weight: 500;
+  font-size: calc(11.5px * var(--type-scale));       /* 18 */
+  line-height: 1.5; margin-bottom: 9.6px;
+}
+.pp-pain-body::before { content: 'What we heard';      color: var(--coral); }
+.pp-pain-fix::before  { content: 'How Keeyu fixes that'; color: var(--teal); }
+
+
+/* ── 11. Graphic well ───────────────────────────────────────────── */
+/* Containers are for graphics only. Prose never sits in a box. */
+
+.well {
+  width: var(--content-w); background: var(--well-bg);
+  border: 1px solid var(--hair); border-radius: 14px;
+  padding: 28px; margin-top: 12.8px;
+}
+.well-caption { font-size: calc(9px * var(--type-scale)); color: var(--muted); margin-top: 17.9px; }
+
+.card {
+  background: var(--white); border: 1px solid var(--card-border); border-radius: 6.4px;
+  box-shadow: 0 1.9px 3.8px rgba(0,0,0,.05), 0 .6px .6px rgba(0,0,0,.04);
+  padding: 11.5px 12.8px;
+}
+
+.bar { height: 21.8px; border-radius: 6.4px; }
+.bar--coral {
+  background: linear-gradient(90deg, var(--coral-light), var(--coral));
+  box-shadow: inset 0 .6px 0 rgba(255,255,255,.45), 0 5.1px 11.5px -3.8px rgba(246,129,106,.6);
+}
+.bar--teal {
+  background: linear-gradient(90deg, var(--teal-light), var(--teal));
+  box-shadow: inset 0 .6px 0 rgba(255,255,255,.4), 0 6.4px 12.8px -5.1px rgba(63,167,183,.55);
+}
+
+
+/* ── 12. Closing blocks ─────────────────────────────────────────── */
+/* "In short" and "Next step" are prose, not callout panels.
+   A standalone rule above, never a tinted box. */
+
+.pp-callout {
+  width: var(--content-w); margin-top: 34.6px; padding-top: 25.6px;
+  border-top: 1px solid var(--hair);
+  font-size: calc(10.2px * var(--type-scale)); line-height: 1.4; color: var(--body);
+}
+.pp-callout strong {
+  display: block; font-family: 'Roboto Serif', serif; font-weight: 300;
+  font-size: calc(21.8px * var(--type-scale)); line-height: 1.24; color: var(--ink);
+  margin-bottom: 12.8px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   13. Landscape pages  (ROI Breakdown, The Offer)
+   ═══════════════════════════════════════════════════════════════════
+   These render at 1920 × 1080, so Figma values apply 1:1 — no 0.6403
+   conversion. The A4 type ramp is kept deliberately: these are read on
+   a laptop at arm's length, so the canvas gets wider, the type does not. */
+
+.landscape { --page-w: 1920px; --page-h: 1080px; --margin: 120px; --content-w: 1680px; --footer-y: 1022px; }
+.landscape .page { width: 1920px; height: 1080px; padding: 0 120px; }
+/* The 1920 x 1080 hero is the A4 hero at exactly 1.5x: 2160 x 1026 against
+   1440 x 684. The same module is reused and only the scale factor changes.
+   Cover slides sit the hero at -500, content slides push it off the bottom
+   at 816. */
+.landscape .hero { left: -120px; top: -500px; width: 2160px; height: 1026px; }
+.landscape .page--cont .hero { top: 816px; }
+.landscape .hero::before { transform: scale(1.5); }
+.landscape .hero::before { left: -150px; }
+.landscape .content { padding-top: 146px; }
+.landscape .logo { left: 125px; top: 70px; width: 130px; }
+.landscape .doc-title      { font-size: calc(72px * var(--type-scale)); }
+.landscape .section-heading{ font-size: calc(40px * var(--type-scale)); margin-top: 62px; }
+.landscape .pain-headline  { font-size: calc(34px * var(--type-scale)); }
+.landscape .doc-meta       { font-size: calc(19px * var(--type-scale)); }
+.landscape .doc-intro      { font-size: calc(17px * var(--type-scale)); }
+.landscape .caption        { font-size: calc(19.4px * var(--type-scale)); }
+.landscape .doc-footer     { font-size: calc(13px * var(--type-scale)); }
+.landscape .pp-metric-value{ font-size: calc(54px * var(--type-scale)); }
+.landscape .pp-metric-label{ font-size: calc(14px * var(--type-scale)); }
+.landscape body, .landscape .kv-row, .landscape .k-table td { font-size: calc(15px * var(--type-scale)); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   14. Deck slides  (Demo Deck)
+   ═══════════════════════════════════════════════════════════════════
+   1920 × 1080 on the measured deck grid. Title 54 at y140, a full-width
+   divider under it, columns at x 120 / 726 / 1332 (three-up) or
+   x 120 / 1060 (two-up), content landing between y 900 and y 966.
+   96 is the cover only. A content slide opening at 72 or 96 is wrong. */
+
+.deck { --page-w: 1920px; --page-h: 1080px; --margin: 120px; --content-w: 1680px; --footer-y: 1022px; }
+.deck .slide {
+  position: relative; width: 1920px; height: 1080px; overflow: hidden;
+  padding: 0 120px; background: var(--white); page-break-after: always;
+}
+.deck .slide:last-child { page-break-after: auto; }
+/* Same hero module as A4, at 1.5x. Measured: content slides put it at
+   y 816, the cover at -500, the closer at -642. */
+.deck .hero { left: -120px; top: 816px; width: 2160px; height: 1026px; }
+.deck .slide--cover .hero  { top: -500px; }
+.deck .slide--closer .hero { top: -642px; }
+.deck .hero::before { transform: scale(1.5); }
+.deck .hero::before { left: -150px; }
+.deck .logo { left: 125px; top: 70px; width: 130px; }
+.deck .slide-title  { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+                      font-size: calc(54px * var(--type-scale)); line-height:1.24; letter-spacing:-.002em;
+                      position:absolute; left:120px; top:140px; width:1000px; }
+.deck .slide-title--muted { color: var(--muted); }
+.deck .cover-title  { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+                      font-size: calc(96px * var(--type-scale)); line-height:1.12; letter-spacing:-.002em; }
+.deck .statement    { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+                      font-size: calc(44px * var(--type-scale)); line-height:1.24; }
+.deck .slide-body   { font-size: calc(20px * var(--type-scale)); line-height:1.52; color: var(--body); }
+.deck .col-label    { font-family:'Geist',sans-serif; font-weight:500; font-size: calc(24px * var(--type-scale));
+                      line-height:1.5; }
+.deck .col-label--coral { color: var(--coral); }
+.deck .col-label--teal  { color: var(--teal); }
+.deck .list-item    { font-family:'Roboto Serif',serif; font-weight:300; color: var(--strong);
+                      font-size: calc(32px * var(--type-scale)); line-height:1.24; }
+.deck .item-num     { font-size: calc(17px * var(--type-scale)); line-height:1.5; }
+.deck .stat-num     { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+                      font-size: calc(72px * var(--type-scale)); line-height:1.1; letter-spacing:-.01em; }
+.deck .stat-label   { font-size: calc(19px * var(--type-scale)); color: var(--muted); }
+.deck .divider-v    { position:absolute; top:280px; width:1px; background: var(--hair); }
+.deck .doc-footer   { font-size: calc(15px * var(--type-scale)); }
+.grid-3 { display:grid; grid-template-columns: repeat(3, 468px); gap: 138px; }
+.grid-2 { display:grid; grid-template-columns: repeat(2, 740px); gap: 200px; }
+.grid-4 { display:grid; grid-template-columns: repeat(4, 360px); gap: 80px; }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   15. Shared A4 components
+   ═══════════════════════════════════════════════════════════════════
+   The renderers emit their own class prefixes (.cs- .ar- .csa- .map-).
+   Those are aliased onto these shared rules so no Python needs editing. */
+
+.k-section        { margin-top: 39.7px; page-break-inside: avoid; }
+.k-section-heading{ font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+                    font-size: calc(20.5px * var(--type-scale)); line-height:1.24; }
+.k-sub-heading    { font-family:'Geist',sans-serif; font-weight:500; color: var(--strong);
+                    font-size: calc(11.5px * var(--type-scale)); line-height:1.5; margin-top: 17.9px; }
+.k-section-intro  { font-size: calc(9.6px * var(--type-scale)); line-height:1.4; color: var(--body); margin-top: 7.7px; }
+.k-divider        { border:0; border-top:1px solid var(--hair); margin: 19.2px 0 0; }
+
+/* Label / value rows: label left in muted, value right in serif. */
+.kv-row  { display:flex; justify-content:space-between; align-items:baseline; gap:19.2px;
+           padding: 10.2px 0; border-bottom:1px solid var(--hair); }
+.kv-row:last-child { border-bottom:0; }
+.kv-key  { color: var(--muted); font-size: calc(9.6px * var(--type-scale)); }
+.kv-val  { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+           font-size: calc(12.4px * var(--type-scale)); text-align:right; }
+
+/* Tables: rules only. No fills, no header bands, no caps headers. */
+.k-table { width:100%; border-collapse:collapse; margin-top: 12.8px;
+           font-size: calc(9.6px * var(--type-scale)); }
+.k-table th { text-align:left; font-family:'Geist',sans-serif; font-weight:500; text-transform:none;
+              letter-spacing:-.002em; color: var(--muted);
+              font-size: calc(9.6px * var(--type-scale)); padding: 0 12.8px 7.7px 0;
+              border-bottom:1px solid var(--rule); }
+.k-table td { padding: 10.2px 12.8px 10.2px 0; vertical-align:top; color: var(--body);
+              border-bottom:1px solid var(--hair); line-height:1.4; }
+.k-table tr:last-child td { border-bottom:0; }
+.k-table td:first-child { color: var(--strong); }
+.k-table td:last-child, .k-table th:last-child { padding-right:0; }
+.k-table .num { text-align:right; font-family:'Roboto Serif',serif; font-weight:300;
+                font-size: calc(12.4px * var(--type-scale)); color: var(--ink); }
+.k-table .status-risk { color: var(--coral); }
+.k-table .status-ok   { color: var(--teal); }
+
+/* Bulleted lists: middle dot, never a disc, never inside a panel. */
+.k-list { list-style:none; margin-top: 7.7px; }
+.k-list li { position:relative; padding-left: 14.1px; margin-top: 5.1px; line-height:1.4;
+             font-size: calc(9.6px * var(--type-scale)); color: var(--body); }
+.k-list li::before { content:'·'; position:absolute; left:0; color: var(--muted); }
+
+.k-note   { margin-top: 25.6px; padding-top: 19.2px; border-top:1px solid var(--hair);
+            font-size: calc(9.6px * var(--type-scale)); color: var(--body); }
+.k-note-title { font-family:'Geist',sans-serif; font-weight:500; color: var(--strong); margin-bottom: 5.1px; }
+.k-quote  { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+            font-size: calc(16.6px * var(--type-scale)); line-height:1.32; margin-top: 21.8px; }
+.k-sources{ margin-top: 34.6px; padding-top: 12.8px; border-top:1px solid var(--hair);
+            font-size: calc(8.3px * var(--type-scale)); color: var(--muted); line-height:1.5; }
+
+/* ── Renderer aliases ───────────────────────────────────────────── */
+.cs-content, .ar-content, .csa-content, .map-content { position:relative; z-index:1; }
+.cs-title-header, .ar-title-header { display:none; }          /* title is set in the template */
+.cs-section-heading, .ar-section-heading, .csa-section-heading, .map-section-heading {
+  font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+  font-size: calc(20.5px * var(--type-scale)); line-height:1.24; margin-top: 39.7px; }
+.cs-sub-heading, .ar-sub-heading {
+  font-family:'Geist',sans-serif; font-weight:500; color: var(--strong);
+  font-size: calc(11.5px * var(--type-scale)); line-height:1.5; margin-top: 17.9px; }
+.cs-section-intro, .ar-section-intro, .csa-section-intro, .map-section-intro {
+  font-size: calc(9.6px * var(--type-scale)); line-height:1.4; color: var(--body); margin-top: 7.7px; }
+.cs-section-divider, .ar-section-divider { border:0; border-top:1px solid var(--hair); margin: 19.2px 0 0; }
+.cs-table, .ar-table, .ar-sub-table, .map-table { width:100%; border-collapse:collapse; margin-top: 12.8px;
+  font-size: calc(9.6px * var(--type-scale)); }
+.cs-table th, .ar-table th, .ar-sub-table th, .map-table th {
+  text-align:left; font-weight:500; text-transform:none; letter-spacing:-.002em; color: var(--muted);
+  padding: 0 12.8px 7.7px 0; border-bottom:1px solid var(--rule); background:none; }
+.cs-table td, .ar-table td, .ar-sub-table td, .map-table td {
+  padding: 10.2px 12.8px 10.2px 0; vertical-align:top; color: var(--body);
+  border-bottom:1px solid var(--hair); line-height:1.4; }
+.cs-table td:first-child, .ar-table td:first-child, .map-table td:first-child { color: var(--strong); }
+.cs-bullet-list, .ar-bullet-list { list-style:none; margin-top: 7.7px; }
+.cs-bullet-list li, .ar-bullet-list li { position:relative; padding-left:14.1px; margin-top:5.1px;
+  line-height:1.4; font-size: calc(9.6px * var(--type-scale)); color: var(--body); }
+.cs-bullet-list li::before, .ar-bullet-list li::before { content:'·'; position:absolute; left:0; color: var(--muted); }
+.cs-notes, .ar-note-block { margin-top:25.6px; padding-top:19.2px; border-top:1px solid var(--hair);
+  font-size: calc(9.6px * var(--type-scale)); color: var(--body); background:none; border-radius:0; }
+.cs-notes-title { font-weight:500; color: var(--strong); margin-bottom:5.1px; }
+.cs-note-item { margin-top:5.1px; }
+.ar-quoted { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+  font-size: calc(16.6px * var(--type-scale)); line-height:1.32; margin-top:21.8px; }
+.ar-subtitle { color: var(--muted); font-size: calc(9.6px * var(--type-scale)); }
+.ar-summary-row td, .ar-benchmark-row td { color: var(--strong); }
+.cs-sources, .ar-sources { margin-top:34.6px; padding-top:12.8px; border-top:1px solid var(--hair);
+  font-size: calc(8.3px * var(--type-scale)); color: var(--muted); line-height:1.5; }
+.csa-section, .map-section { margin-top:39.7px; page-break-inside:avoid; }
+.csa-footer, .map-footer { position:fixed; bottom:25px; left:var(--margin); right:var(--margin);
+  display:flex; justify-content:space-between; font-size: calc(8.3px * var(--type-scale)); color: var(--muted); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   16. Prose section block  (the workhorse of every A4 document)
+   ═══════════════════════════════════════════════════════════════════
+   A serif headline over body copy, with a hairline between blocks.
+   This is one of only two body shapes in the system. Measured from
+   Doc 2: headline 32, body 15 at 140%, 30 between blocks, 12 inside. */
+
+.block        { padding-top: 19.2px; }
+.block + .block { border-top: 1px solid var(--hair); margin-top: 19.2px; }
+.block h3     { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+                font-size: calc(20.5px * var(--type-scale)); line-height:1.24; }
+.block p      { font-size: calc(9.6px * var(--type-scale)); line-height:1.4; color: var(--body);
+                margin-top: 7.7px; max-width: 563px; }        /* 880 */
+.block p + p  { margin-top: 9.6px; }
+
+/* A section heading owns a full-width rule beneath it. */
+.section-block           { margin-top: 39.7px; }
+.section-block > hr      { border:0; border-top:1px solid var(--rule); margin-top: 12.8px; }
+
+/* A caption introduces the graphic that follows it, in a full sentence. */
+.graphic-caption { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+                   font-size: calc(12.4px * var(--type-scale)); line-height:1.24; margin-top: 29.5px; }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   17. Bar comparison graphic
+   ═══════════════════════════════════════════════════════════════════ */
+
+.bars      { display:flex; flex-direction:column; gap: 12.8px; }
+.bar-row   { display:flex; align-items:center; gap: 12.8px; }
+.bar-label { width: 160px; flex:none; font-size: calc(9.6px * var(--type-scale)); color: var(--strong); }
+.bar-track { flex:1; height: 19.2px; border-radius: 6.4px; background: var(--track); position:relative; }
+.bar-fill  { position:absolute; inset:0 auto 0 0; border-radius: 6.4px; }
+.bar-fill--teal  { background: linear-gradient(90deg, var(--teal-light), var(--teal));
+                   box-shadow: inset 0 .6px 0 rgba(255,255,255,.4), 0 6.4px 12.8px -5.1px rgba(63,167,183,.55); }
+.bar-fill--coral { background: linear-gradient(90deg, var(--coral-light), var(--coral));
+                   box-shadow: inset 0 .6px 0 rgba(255,255,255,.45), 0 5.1px 11.5px -3.8px rgba(246,129,106,.6); }
+.bar-value { width: 118px; flex:none; text-align:left; font-size: calc(9px * var(--type-scale)); color: var(--muted); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   18. Graphic modules — built at Figma native size, then scaled
+   ═══════════════════════════════════════════════════════════════════
+   Every value below is read straight out of Figma via get_design_context,
+   not eyeballed. Graphics are authored at their native 1072 width and
+   scaled by --fig (794/1240 = 0.6403) so the geometry stays exact.
+
+   .fig-scale wraps a native-size graphic. Set its height to the native
+   height x 0.6403 so the surrounding flow reserves the right space. */
+
+.fig-scale        { position:relative; overflow:hidden; }
+.fig-scale > .fig { transform: scale(0.6403); transform-origin: top left; position:absolute; top:0; left:0; }
+
+/* ── Systems graphic  (node 123:61491, 1072 x 296) ──────────────── */
+
+.sys            { width:1072px; height:296px; position:relative;
+                  background:#F9F9F9; border:1px solid #ECECEC; border-radius:22px; }
+.sys-wires      { position:absolute; inset:0; }
+.sys-hub        { position:absolute; left:431px; top:41px; width:208px; height:58px; border-radius:12px;
+                  background:
+                    linear-gradient(17.04deg, rgba(216,246,255,.65) 4%, rgba(156,223,243,.65) 22.3%,
+                                              rgba(252,225,218,.65) 58.6%, rgba(255,83,49,.65) 98%),
+                    linear-gradient(90deg, #E5E5E5, #E5E5E5);
+                  box-shadow: 0 10px 20px -8px rgba(63,167,183,.55), inset 0 1px 0 0 rgba(255,255,255,.4); }
+.sys-hub span   { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+                  font-family:'Geist',sans-serif; font-weight:500; font-size:19px; color:#4D5454; }
+.sys-card       { position:absolute; top:151px; width:184px; height:66px; background:#fff;
+                  border:1px solid #EAEAEA; border-radius:10px;
+                  box-shadow: 0 1px 1px 0 rgba(0,0,0,.04), 0 3px 6px 0 rgba(0,0,0,.05);
+                  display:flex; align-items:center; justify-content:center;
+                  font-family:'Geist',sans-serif; font-weight:500; font-size:14px; color:#1A1A1A; text-align:center; }
+/* card x positions are set inline in the markup: 43, 243, 443, 643, 843 */
+.sys-caption    { position:absolute; left:43px; top:231px; width:700px;
+                  font-family:'Geist',sans-serif; font-weight:400; font-size:14px; color:#9AA0A6; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   19. Next-step card  (gradient border, closing call to action)
+   ═══════════════════════════════════════════════════════════════════
+   The one place prose sits inside a container, because the approved
+   design puts it there. Everywhere else, prose stays out of boxes. */
+
+.next-step { margin-top: 34.6px; border-radius: 14px; padding: 1px;
+             background: linear-gradient(100deg, #9CDFF3, #D8F6FF 35%, #FCE1DA 70%, #FF5331); }
+.next-step > .inner { background: var(--white); border-radius: 13px; padding: 25.6px 28.8px; }
+.next-step h3 { font-family:'Roboto Serif',serif; font-weight:300; color: var(--ink);
+             font-size: calc(20.5px * var(--type-scale)); line-height:1.24; }
+.next-step p  { font-size: calc(9.6px * var(--type-scale)); line-height:1.4; color: var(--body);
+             margin-top: 9.6px; max-width: 563px; }

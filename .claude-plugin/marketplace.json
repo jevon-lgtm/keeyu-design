@@ -1,0 +1,16 @@
+{
+  "name": "keeyu-design",
+  "owner": {
+    "name": "Keeyu"
+  },
+  "plugins": [
+    {
+      "name": "keeyu-design",
+      "source": "./",
+      "description": "Build Keeyu customer-facing documents and decks to the approved design specification.",
+      "version": "0.1.0",
+      "category": "design",
+      "tags": ["keeyu", "design-system", "brand", "sales-collateral", "pdf"]
+    }
+  ]
+}

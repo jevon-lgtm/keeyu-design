@@ -1,0 +1,5 @@
+.DS_Store
+*.zip
+_p*.png
+__pycache__/
+node_modules/

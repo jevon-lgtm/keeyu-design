@@ -1,0 +1,70 @@
+<!-- @dsCard group="Depth" name="Coral and teal bars" subtitle="Exact fills, inner shadows and cast glows" width="1240" height="387" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Coral and teal bars</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wght@8..144,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap">
+<style>
+:root{
+  --ink:#000000; --strong:#1A1A1A; --body:#4D5454; --soft:#797E82; --muted:#9AA0A6;
+  --rule:#E0E0E0; --hair:#ECECEC; --track:#EFEFEF; --card-border:#EAEAEA;
+  --well:#F9F9F9; --connector:#CBCBCB; --paper:#FAFAFA;
+  --coral-light:#FCA694; --coral:#F6816A; --teal-light:#5FBEC8; --teal:#3FA7B7;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ background:var(--paper); color:var(--body);
+      font-family:'Geist',-apple-system,'Segoe UI',sans-serif; font-weight:400;
+      font-size:15px; line-height:1.4; letter-spacing:-0.002em; }
+.sheet{ padding:84px; position:relative; }
+.serif{ font-family:'Roboto Serif',Georgia,'Times New Roman',serif; font-weight:300;
+        letter-spacing:-0.002em; color:var(--ink); }
+h1{ font-family:'Roboto Serif',Georgia,serif; font-weight:300; font-size:72px;
+    line-height:1.12; letter-spacing:-0.002em; color:var(--ink); }
+h2{ font-family:'Roboto Serif',Georgia,serif; font-weight:300; font-size:40px;
+    line-height:1.24; letter-spacing:-0.002em; color:var(--ink); }
+h3{ font-family:'Roboto Serif',Georgia,serif; font-weight:300; font-size:32px;
+    line-height:1.24; color:var(--ink); }
+.cap{ font-family:'Roboto Serif',Georgia,serif; font-weight:300; font-size:19.4px;
+      line-height:1.24; color:var(--ink); }
+.note{ font-size:14px; line-height:1.5; color:var(--muted); }
+.lead{ font-size:17px; line-height:1.4; color:var(--body); }
+hr{ border:0; border-top:1px solid var(--rule); }
+hr.hair{ border-top-color:var(--hair); }
+a{ color:#3FA7B7; } a:hover{ color:#2F8794; }
+
+.hero{ position:absolute; left:-100px; top:-329px; width:1440px; height:684px;
+       overflow:hidden; background:var(--paper); z-index:0; }
+.hero::before{ content:""; position:absolute; top:0; left:-100px; width:1751px; height:684px;
+  filter:blur(53px); opacity:.8;
+  background:
+    linear-gradient(180deg, #FAFAFA 0%, #FAFAFA 19%, rgba(250,250,250,.78) 28%,
+      rgba(250,250,250,.38) 40%, rgba(250,250,250,0) 48%,
+      rgba(250,250,250,.18) 70%, rgba(250,250,250,.86) 84%, #FAFAFA 90%),
+    linear-gradient(92.24deg, #FF5331 0.07%, #FCE1DA 38.25%, #9CDFF3 75.92%, #D8F6FF 89.42%); }
+.dots{ position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
+.dots::before{ content:""; position:absolute; inset:0;
+  background-image:radial-gradient(circle at 1.5px 1.5px, rgba(0,0,0,.08) 1.5px, rgba(0,0,0,0) 1.6px);
+  background-size:20px 20px;
+  -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.06) 35%, rgba(0,0,0,.225) 70%, rgba(0,0,0,.5) 100%);
+          mask-image:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.06) 35%, rgba(0,0,0,.225) 70%, rgba(0,0,0,.5) 100%); }
+
+.card{ width:1240px; min-height:387px; position:relative; padding:56px; background:var(--paper); }
+.spec{ display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+.spec > div{ display:flex; justify-content:space-between; border-bottom:1px solid var(--hair); padding-bottom:10px; }
+.spec > div:last-child{ border-bottom:0; }
+.spec .v{ color:var(--strong); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="dots"></div>
+  <div style="position:relative;z-index:1">
+    <h3 style="font-size:32px">Bars</h3>
+    <div style="display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:44px;margin-top:24px"><div><div style="height:34px;border-radius:10px;background:linear-gradient(90deg,#FCA694,#F6816A);box-shadow:inset 0 1px 0 0 rgba(255,255,255,.45), 0 8px 18px -6px rgba(246,129,106,.6)"></div><div class="spec"><div><span class="note">Fill</span><span class="v">#FCA694 to #F6816A</span></div><div><span class="note">Inner shadow</span><span class="v">#FFFFFF 0.45, y1, radius 0</span></div><div><span class="note">Drop shadow</span><span class="v">#F6816A 0.60, y8, r18, spread -6</span></div><div><span class="note">Radius</span><span class="v">10 horizontal, 12 vertical</span></div></div></div><div><div style="height:34px;border-radius:10px;background:linear-gradient(90deg,#5FBEC8,#3FA7B7);box-shadow:inset 0 1px 0 0 rgba(255,255,255,.40), 0 10px 20px -8px rgba(63,167,183,.55)"></div><div class="spec"><div><span class="note">Fill</span><span class="v">#5FBEC8 to #3FA7B7</span></div><div><span class="note">Inner shadow</span><span class="v">#FFFFFF 0.40, y1, radius 0</span></div><div><span class="note">Drop shadow</span><span class="v">#3FA7B7 0.55, y10, r20, spread -8</span></div><div><span class="note">Vertical bars</span><span class="v">y12, r22, spread -8</span></div></div></div></div>
+  </div>
+</div>
+</body>
+</html>
